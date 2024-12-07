@@ -17,7 +17,26 @@ func (p *Product) Create(product *entity.Product) error {
 	return p.DB.Create(product).Error
 }
 
-//func (p *Product) FindAll(page, limit int, sort string) ([]entity.Product, error) {}
+/*
+page - o número da página que queremos exibir
+limit - quantos registros serão exibidos por página
+offset - especifica quantos registros devem ser ignorados antes de começar a exibir os resultados. usado para pular os registros das páginas anteriores.
+pagina == 0 - primeira pagina
+(page - 1) * limit - proximo offset = quantidade de paginas e multiplica - quais registros devem ser ignorados para exibir uma página específica de resultados
+*/
+func (p *Product) FindAll(page, limit int, sort string) ([]entity.Product, error) {
+	var products []entity.Product
+	var err error
+	if sort != "" && sort != "asc" && sort != "desc" {
+		sort = "asc" // forcar que seja asc
+	}
+	if page != 0 && limit != 0 {
+		err = p.DB.Limit(limit).Offset((page - 1) * limit).Order("created_at " + sort).Find(&products).Error
+	} else {
+		err = p.DB.Order("created_at " + sort).Find(&products).Error
+	}
+	return products, err
+}
 
 func (p *Product) FindByID(id string) (*entity.Product, error) {
 	var product entity.Product

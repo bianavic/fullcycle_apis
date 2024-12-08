@@ -2,8 +2,9 @@ package entity
 
 import (
 	"errors"
-	"github.com/bianavic/fullcycle_apis/pkg/entity"
 	"time"
+
+	"github.com/bianavic/fullcycle_apis/pkg/entity"
 )
 
 var (

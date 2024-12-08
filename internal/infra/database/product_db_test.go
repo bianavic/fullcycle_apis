@@ -2,12 +2,13 @@ package database
 
 import (
 	"fmt"
-	"github.com/bianavic/fullcycle_apis/internal/entity"
 	"github.com/stretchr/testify/assert"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"math/rand"
 	"testing"
+
+	"github.com/bianavic/fullcycle_apis/internal/entity"
 )
 
 func TestCreateNewProduct(t *testing.T) {

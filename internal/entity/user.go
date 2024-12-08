@@ -1,8 +1,9 @@
 package entity
 
 import (
-	"github.com/bianavic/fullcycle_apis/pkg/entity"
 	"golang.org/x/crypto/bcrypt"
+
+	"github.com/bianavic/fullcycle_apis/pkg/entity"
 )
 
 // entity - regras de negocio

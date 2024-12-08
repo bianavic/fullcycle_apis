@@ -1,11 +1,12 @@
 package database
 
 import (
-	"github.com/bianavic/fullcycle_apis/internal/entity"
 	"github.com/stretchr/testify/assert"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"testing"
+
+	"github.com/bianavic/fullcycle_apis/internal/entity"
 )
 
 func TestCreateUser(t *testing.T) {

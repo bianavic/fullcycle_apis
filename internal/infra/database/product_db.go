@@ -1,8 +1,9 @@
 package database
 
 import (
-	"github.com/bianavic/fullcycle_apis/internal/entity"
 	"gorm.io/gorm"
+
+	"github.com/bianavic/fullcycle_apis/internal/entity"
 )
 
 type Product struct {

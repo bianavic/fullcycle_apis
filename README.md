@@ -69,5 +69,12 @@ View products
 sqlite> select * from products;
 ```
 
+Tools:
+- go-chi
+- gorm.io
+- viper
+- google/uuid
+- swag
+
 Fontes:
 https://github.com/golang-standards/project-layout

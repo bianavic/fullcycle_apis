@@ -2,9 +2,9 @@ POST http://localhost:8080/users HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Jane Doe 2",
-  "email": "j2@email.com",
-  "password": "1234"
+  "name": "Jane Doe 3",
+  "email": "j3@email.com",
+  "password": "3456"
 }
 
 ###
@@ -12,6 +12,6 @@ POST http://localhost:8080/users/generate_token HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "j1@email.com",
-  "password": "1234"
+  "email": "j3@email.com",
+  "password": "3456"
 }

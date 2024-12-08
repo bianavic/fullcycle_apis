@@ -8,10 +8,10 @@ import (
 
 // entity - regras de negocio
 type User struct {
-	ID       entity.ID `json:"ID"`
-	Name     string    `json:"Name"`
-	Email    string    `json:"Email"`
-	Password string    `json:"Password"`
+	ID       entity.ID `json:"id"`
+	Name     string    `json:"name"`
+	Email    string    `json:"email"`
+	Password string    `json:"password"`
 }
 
 func NewUser(name, email, password string) (*User, error) {

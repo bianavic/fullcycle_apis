@@ -2,10 +2,10 @@ package main
 
 import (
 	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/jwtauth"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"log"
 	"net/http"
 
 	"github.com/bianavic/fullcycle_apis/configs"
@@ -33,7 +33,8 @@ func main() {
 	userHandler := handlers.NewUserHandler(userDB, configs.TokenAuth, configs.JWTExpiresIn)
 
 	r := chi.NewRouter()
-	r.Use(middleware.Logger)
+	//r.Use(middleware.Logger)
+	r.Use(LogRequest)
 
 	r.Route("/products", func(r chi.Router) {
 		r.Use(jwtauth.Verifier(configs.TokenAuth)) // pega o token
@@ -49,4 +50,13 @@ func main() {
 	r.Post("/users/generate_token", userHandler.GetJWT)
 
 	http.ListenAndServe(":8080", r)
+}
+
+// variavel next -> continua a execucao para o proximo middleware ou proximo handler
+func LogRequest(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		r.Context().Value("user")
+		log.Printf("Request: %s %s", r.Method, r.URL.Path)
+		next.ServeHTTP(w, r)
+	})
 }

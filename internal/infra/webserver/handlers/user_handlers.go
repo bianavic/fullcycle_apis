@@ -12,16 +12,12 @@ import (
 )
 
 type UserHandler struct {
-	UserDB       database.UserInterface
-	Jwt          *jwtauth.JWTAuth
-	JwtExpiresIn int
+	UserDB database.UserInterface
 }
 
-func NewUserHandler(db database.UserInterface, jwt *jwtauth.JWTAuth, jwtExpiresIn int) *UserHandler {
+func NewUserHandler(db database.UserInterface) *UserHandler {
 	return &UserHandler{
-		UserDB:       db,
-		Jwt:          jwt,
-		JwtExpiresIn: jwtExpiresIn,
+		UserDB: db,
 	}
 }
 
@@ -46,6 +42,8 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *UserHandler) GetJWT(w http.ResponseWriter, r *http.Request) {
+	jwt := r.Context().Value("jwt").(*jwtauth.JWTAuth)
+	jwtExpiresIn := r.Context().Value("JwtExpiresIn").(int)
 	var user dto.GetJWTInput
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
@@ -64,9 +62,9 @@ func (h *UserHandler) GetJWT(w http.ResponseWriter, r *http.Request) {
 
 	// gerar token formato string
 	// passa dados q envia no payload (token) dentro do encode
-	_, tokenString, _ := h.Jwt.Encode(map[string]interface{}{
+	_, tokenString, _ := jwt.Encode(map[string]interface{}{
 		"sub": u.ID.String(),
-		"exp": time.Now().Add(time.Second * time.Duration(h.JwtExpiresIn)).Unix(),
+		"exp": time.Now().Add(time.Second * time.Duration(jwtExpiresIn)).Unix(),
 	})
 
 	// para serializar os dados no json: criada struct anonima q recebe um access token

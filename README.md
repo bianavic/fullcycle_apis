@@ -6,6 +6,7 @@
 ```plaintext
 📁 fullcycle_apis
 ├── 📁 api - especificacoes da api
+│       └──  📄 swagger.yaml
 ├── 📁 cmd - o executavel (build, run, main)
 │   └── 📁 server - pasta com o nome da aplicacao
 │       ├── 📄 .env
@@ -13,6 +14,10 @@
 │       └── 📄 test.db
 ├── 📁 configs - como projeto inicia (variaveis de ambiente, como subir o sistema) - templates, arquivos go que faz boot
 │   └── 📄 config.go
+├── 📁 docs
+│   ├── 📄 docs.go
+│   ├── 📄 swagger.json  
+│   └── 📄 swagger.yaml
 ├── 📁 internal - o coracao da app, nao deve ser compartilhado
 │   ├── 📁 dto
 │   │   └── 📄 dto.go
@@ -31,12 +36,14 @@
 │   │   │   └── 📄 user_db_test.go
 │   │   └── 📁 webserver
 │   │       └── 📁 handlers
-│   │           └── 📄 product_handlers.go
+│   │           ├── 📄 product_handlers.go
+│   │           └── 📄 user_handlers.go
 ├── 📁 pkg - libs para serem compartilhadas (ex: autenticacao)
 │   ├── 📁 entity
 │   │   └── 📄 id.go
 ├── 📁 test - arquivos adicionais que ajudam (docs, exemplos, stubs, arquivos http, postman...)
-|   └── 📄 product.http
+|   ├── 📄 product.http
+|   └── 📄 user.http
 ├── 📄 .gitignore
 ├── 📁 go.mod
 |   └── 📄 go.sum

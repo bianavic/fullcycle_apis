@@ -16,12 +16,6 @@ import (
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
-// @host localhost:8080
-// @BasePath /
-// @securityDefinitions.apikey ApiKeyAuth
-// @in header
-// @name Authorization
-
 // @title           Go Expert API Example
 // @version         1.0
 // @description     Product API with authentication
@@ -61,16 +55,6 @@ func main() {
 	r.Use(middleware.WithValue("JwtExpiresIn", configs.JWTExpiresIn))
 	//r.Use(LogRequest)
 
-	// CORS middleware
-	//r.Use(cors.Handler(cors.Options{
-	//	AllowedOrigins:   []string{"http://localhost", "http://localhost:8080"}, // Specify allowed origins
-	//	AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},   // HTTP methods
-	//	AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
-	//	ExposedHeaders:   []string{"Link"},
-	//	AllowCredentials: true,
-	//	MaxAge:           300,
-	//}))
-
 	r.Route("/products", func(r chi.Router) {
 		r.Use(jwtauth.Verifier(configs.TokenAuth)) // pega o token
 		r.Use(jwtauth.Authenticator)               // valida token
@@ -84,7 +68,7 @@ func main() {
 	r.Post("/users", userHandler.CreateUser)
 	r.Post("/users/generate_token", userHandler.GetJWT)
 
-	r.Get("/docs/*", httpSwagger.Handler(httpSwagger.URL("http://localhost:8080/docs/docs.json")))
+	r.Get("/docs/*", httpSwagger.Handler(httpSwagger.URL("http://localhost:8080/docs/doc.json")))
 
 	http.ListenAndServe(":8080", r)
 }

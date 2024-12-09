@@ -25,7 +25,6 @@ func NewUserHandler(db database.UserInterface) *UserHandler {
 	}
 }
 
-// @Create user godoc
 // @Summary Create user
 // @Description Create user
 // @Tags users
@@ -59,15 +58,14 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
-// @GetJWT godoc
+// GetJWT godoc
 // @Summary Get a user JWT
 // @Description Get a user JWT
 // @Tags users
 // @Accept json
 // @Produce json
 // @Param request body dto.GetJWTInput true "user credentials"
-// @Success 200 {object} dto.GetJWTInput
-// @Failure 400
+// @Success 200 {object} dto.GetJWTOutput
 // @Failure 404 {object} Error
 // @Failure 500 {object} Error
 // @Router /users/generate_token [post]
@@ -100,8 +98,8 @@ func (h *UserHandler) GetJWT(w http.ResponseWriter, r *http.Request) {
 	})
 
 	// para serializar os dados no json: criada struct anonima q recebe um access token
-	accessToken := dto.GetJWTOutput{AcessToken: tokenString}
+	//accessToken := dto.GetJWTOutput{AcessToken: tokenString}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(accessToken)
+	json.NewEncoder(w).Encode(tokenString)
 }
